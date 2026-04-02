@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travexa - Plataforma de Viajes</title>
+    
+    <!-- Estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8faf9; 
+            color: #1f2937;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+
+    <script>
+        // Configuración de Tailwind
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#009494',
+                            dark: '#007a7a',
+                            light: '#e6f4f4'
+                        },
+                        accent: '#ffb000'
+                    }
+                }
+            }
+        };
+
+        // Lógica de la aplicación ANTES de cargar Alpine
+        function travexaApp() {
+            return {
+                currentView: 'home',
+                selectedPackage: null,
+                categories: [
+                    { id: 1, name: 'Costa Atlántica', subtitle: 'Sol y Arena', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80' },
+                    { id: 2, name: 'Patagonia', subtitle: 'Paisajes Épicos', img: 'https://images.unsplash.com/photo-1517054466297-317af3726723?auto=format&fit=crop&w=500&q=80' },
+                    { id: 3, name: 'Cuyo', subtitle: 'Viñedos y Montaña', img: 'https://images.unsplash.com/photo-1596434449015-849ba8208990?auto=format&fit=crop&w=500&q=80' },
+                    { id: 4, name: 'Norte Argentino', subtitle: 'Cultura y Color', img: 'https://images.unsplash.com/photo-1582234032336-6e3e06180590?auto=format&fit=crop&w=500&q=80' }
+                ],
+                packages: [
+                    { 
+                        id: 101,
+                        title: 'Ushuaia, Fin del Mundo', 
+                        destination: 'Ushuaia, Tierra del Fuego',
+                        badge: 'Escapada',
+                        price: '780.900', 
+                        heroImg: 'https://images.unsplash.com/photo-1544085311-11a028465b0c?auto=format&fit=crop&w=800&q=80',
+                        gallery: [
+                            'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=400&q=80',
+                            'https://images.unsplash.com/photo-1628156172677-508b981ecf42?auto=format&fit=crop&w=400&q=80'
+                        ],
+                        agency: 'Dip Viajes', 
+                        duration: '4D/3N',
+                        date: '12 Jun',
+                        description: 'Disfrutá de la ciudad más austral del mundo con este paquete diseñado para conocer lo esencial de Ushuaia.',
+                        tags: [{ icon: '🏨', text: 'Hotel 3*' }, { icon: '✈️', text: 'Vuelo' }],
+                        includes: ['Vuelos', '3 Noches Hotel', 'Desayuno', 'Traslados'],
+                        itinerary: [
+                            { day: 'Día 1', title: 'Llegada', desc: 'Traslado al hotel.' },
+                            { day: 'Día 2', title: 'Parque Nacional', desc: 'Excursión guiada.' }
+                        ]
+                    },
+                    { 
+                        id: 102,
+                        title: 'El Calafate Clásico', 
+                        destination: 'El Calafate, Santa Cruz',
+                        badge: 'Naturaleza',
+                        price: '831.000', 
+                        heroImg: 'https://images.unsplash.com/photo-1516939155915-0568bd4ed23c?auto=format&fit=crop&w=800&q=80',
+                        gallery: [
+                            'https://images.unsplash.com/photo-1494252713559-f26b4fb0c159?auto=format&fit=crop&w=400&q=80',
+                            'https://images.unsplash.com/photo-1542408359-598d1a118df0?auto=format&fit=crop&w=400&q=80'
+                        ],
+                        agency: 'Travexa', 
+                        duration: '4D/3N',
+                        date: '15 Jul',
+                        description: 'Impresionante viaje para conocer la octava maravilla del mundo: El Glaciar Perito Moreno.',
+                        tags: [{ icon: '🏨', text: 'Hotel' }, { icon: '✈️', text: 'Aéreo' }],
+                        includes: ['Aéreo', 'Hotel', 'Excursión Glaciar'],
+                        itinerary: [
+                            { day: 'Día 1', title: 'Check-in', desc: 'Día libre.' },
+                            { day: 'Día 2', title: 'Glaciar', desc: 'Pasarelas del Glaciar.' }
+                        ]
+                    }
+                ],
+                goToDetail(pkg) {
+                    this.selectedPackage = pkg;
+                    this.currentView = 'detail';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                goHome() {
+                    this.currentView = 'home';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+    </script>
+    
+    <!-- Alpine.js (Cargado al final del head para evitar errores de referencia) -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="travexaApp()" class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- Navbar -->
+    <header class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+            <button @click="goHome()" class="text-3xl font-extrabold text-primary flex items-center gap-2">
+                X <span class="text-sm font-medium text-gray-500 hidden sm:block mt-1">Travexa</span>
+            </button>
+            
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                <a href="#" @click.prevent="goHome()" class="transition-colors hover:text-primary" :class="currentView === 'home' ? 'text-primary border-b-2 border-primary pb-1' : ''">Home</a>
+                <a href="#" class="hover:text-primary transition-colors">Asesores</a>
+                <a href="#" class="text-primary font-bold">✨ Cotizá</a>
+            </nav>
+
+            <button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors">
+                Entrar
+            </button>
+        </div>
+    </header>
+
+    <!-- VISTA HOME -->
+    <main x-show="currentView === 'home'" x-cloak>
+        <section class="relative h-[400px] flex items-center justify-center text-center bg-gray-900 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1612294037637-ec328d0e075e?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <div class="relative z-10 px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Paquetes por Argentina</h1>
+                <p class="text-white/90 text-lg max-w-2xl mx-auto mb-8">Viajes completos diseñados por expertos locales.</p>
+                <button class="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Explorar ahora</button>
+            </div>
+        </section>
+
+        <!-- Categorías -->
+        <section class="max-w-[1200px] mx-auto py-12 px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <template x-for="cat in categories" :key="cat.id">
+                    <div class="relative h-32 rounded-2xl overflow-hidden cursor-pointer group">
+                        <img :src="cat.img" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <h3 class="text-white font-bold" x-text="cat.name"></h3>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- Paquetes -->
+        <section class="max-w-[1200px] mx-auto px-4 pb-20">
+            <h2 class="text-2xl font-bold mb-8">Paquetes destacados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="pkg in packages" :key="pkg.id">
+                    <div @click="goToDetail(pkg)" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer border border-gray-100 group">
+                        <div class="relative h-48 overflow-hidden">
+                            <img :src="pkg.heroImg" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold" x-text="pkg.duration"></div>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[10px] text-primary font-bold uppercase tracking-wider" x-text="pkg.badge"></span>
+                            <h3 class="text-xl font-bold mt-1 mb-4" x-text="pkg.title"></h3>
+                            <div class="flex justify-between items-end border-t pt-4">
+                                <div>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase">Desde</p>
+                                    <p class="text-xl font-black text-primary">ARS $<span x-text="pkg.price"></span></p>
+                                </div>
+                                <span class="text-primary font-bold text-sm">Ver más →</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+    </main>
+
+    <!-- VISTA DETALLE -->
+    <main x-show="currentView === 'detail'" x-cloak>
+        <template x-if="selectedPackage">
+            <div class="max-w-[1200px] mx-auto px-4 pt-8 pb-20">
+                <button @click="goHome()" class="flex items-center gap-2 text-gray-500 hover:text-primary mb-6 transition-colors">
+                    ← Volver al inicio
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                    <div class="lg:col-span-2">
+                        <div class="rounded-3xl overflow-hidden h-[400px] mb-8">
+                            <img :src="selectedPackage.heroImg" class="w-full h-full object-cover">
+                        </div>
+                        <h1 class="text-4xl font-extrabold mb-4" x-text="selectedPackage.title"></h1>
+                        <div class="flex gap-4 mb-8">
+                            <template x-for="tag in selectedPackage.tags">
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-xs font-bold" x-text="tag.icon + ' ' + tag.text"></span>
+                            </template>
+                        </div>
+                        <p class="text-lg text-gray-600 mb-10" x-text="selectedPackage.description"></p>
+                        
+                        <div class="bg-white rounded-3xl p-8 border border-gray-100">
+                            <h3 class="text-xl font-bold mb-6">Itinerario</h3>
+                            <div class="space-y-6">
+                                <template x-for="day in selectedPackage.itinerary">
+                                    <div class="flex gap-4">
+                                        <div class="font-bold text-primary" x-text="day.day"></div>
+                                        <div>
+                                            <div class="font-bold" x-text="day.title"></div>
+                                            <div class="text-gray-500 text-sm" x-text="day.desc"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="sticky top-28 bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
+                            <p class="text-sm text-gray-500 font-bold uppercase mb-1">Precio Final</p>
+                            <p class="text-3xl font-black text-primary mb-6">ARS $<span x-text="selectedPackage.price"></span></p>
+                            
+                            <button class="w-full bg-accent text-white py-4 rounded-2xl font-black mb-4 shadow-lg shadow-accent/20">RESERVAR AHORA</button>
+                            <button class="w-full border-2 border-primary text-primary py-3 rounded-2xl font-bold">Consultar dudas</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </main>
+
+</body>
+</html>
