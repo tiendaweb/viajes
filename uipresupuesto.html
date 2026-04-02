@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Comercial Detallada - Travexa</title>
+    
+    <!-- Estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8fafc; 
+            color: #1e293b;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .section-gradient {
+            background: linear-gradient(135deg, #009494 0%, #007a7a 100%);
+        }
+        [x-cloak] { display: none !important; }
+        
+        /* Animaciones suaves */
+        .fade-enter { transition: opacity 0.3s ease-out; }
+        .fade-enter-start { opacity: 0; }
+        .fade-enter-end { opacity: 1; }
+    </style>
+
+    <script>
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#009494',
+                            dark: '#007a7a',
+                            light: '#f0f9f9'
+                        },
+                        accent: '#ffb000'
+                    }
+                }
+            }
+        };
+
+        function budgetManager() {
+            return {
+                currentSection: 'web',
+                // Estructura de datos completa basada en tu texto
+                data: {
+                    web: {
+                        id: 1,
+                        title: 'Presencia Web Profesional',
+                        icon: '🌐',
+                        description: 'En el sector turístico, la confianza lo es todo. Desarrollamos un sitio web que no solo sirve como vidriera, sino como una herramienta de venta activa.',
+                        investment: '$150.000',
+                        investmentLabel: 'Inversión única',
+                        points: [
+                            { t: 'Diseño a medida', d: 'Estética moderna, limpia y adaptada a dispositivos móviles.' },
+                            { t: 'Optimización de Conversión', d: 'Botones de contacto claros y secciones de destinos destacadas.' },
+                            { t: 'Autogestión', d: 'Estructura pensada para que la carga de paquetes sea ágil.' }
+                        ]
+                    },
+                    social: {
+                        id: 2,
+                        title: 'Gestión de Redes Sociales',
+                        icon: '📱',
+                        description: 'No se trata solo de "estar", sino de destacar. El servicio se divide en una puesta a punto estética y un plan mensual.',
+                        setup: {
+                            title: 'Etapa 1: Setup de Identidad',
+                            items: [
+                                'Optimización de seguridad en IG/FB',
+                                'Diseño de perfil y portada coherente',
+                                '4 Portadas para Historias Destacadas',
+                                'Copywriting persuasivo en biografía'
+                            ]
+                        },
+                        packs: [
+                            { name: 'Pack x3', desc: '3 posts + 3 historias (Básico)', price: '$80.000' },
+                            { name: 'Pack x6', desc: '6 posts + 6 historias (Activo)', price: '$140.000' },
+                            { name: 'Pack x9', desc: '9 posts + 9 historias (Máximo)', price: '$200.000' }
+                        ]
+                    },
+                    ads: {
+                        id: 3,
+                        title: 'Campañas Meta Ads',
+                        icon: '🚀',
+                        description: 'Para dejar de esperar que los clientes lleguen solos y salir a buscarlos con precisión quirúrgica.',
+                        details: [
+                            { t: 'Segmentación', d: 'Intereses reales en viajes y capacidad de compra.' },
+                            { t: 'Creatividad', d: 'Piezas diseñadas para detener el scroll.' },
+                            { t: 'Transparencia', d: 'Reporte mensual de alcance y consultas.' }
+                        ],
+                        plans: [
+                            { name: 'Plan 1 Pieza Gráfica', price: '$100.000 / mes' },
+                            { name: 'Plan 2 Piezas Gráficas', price: '$120.000 / mes' }
+                        ],
+                        note: 'El costo es por gestión y diseño. El pago a Meta se define según alcance deseado.'
+                    },
+                    wa: {
+                        id: 4,
+                        title: 'Asistente Virtual WhatsApp',
+                        icon: '🤖',
+                        description: 'Transformamos tu WhatsApp en una verdadera central de reservas para no perder ninguna consulta.',
+                        features: [
+                            'Automatización con IA (24/7)',
+                            'Gestión de Prospectos por etiquetas',
+                            'Embudo de ventas visual',
+                            'API Oficial (Sin riesgo de bloqueo)',
+                            'Bandeja de entrada multicanal para equipos'
+                        ],
+                        plans: [
+                            { name: 'Suscripción Mensual', price: '$50.000' },
+                            { name: 'Bonificación Anual', price: '$450.000', badge: '9 meses x 12' }
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="budgetManager()" class="antialiased text-slate-800">
+
+    <!-- Header / Branding -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary p-2 rounded-lg text-white font-black text-xl">T</div>
+                <span class="font-extrabold text-slate-900 tracking-tight">TRAVEXA <span class="text-primary font-light">DIGITAL</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-4 text-sm font-bold text-slate-400">
+                <span>PRESUPUESTO 2024</span>
+                <span class="h-4 w-px bg-slate-200"></span>
+                <span class="text-primary">ACTIVO</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        
+        <!-- Intro Hero -->
+        <div class="mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Propuesta Estratégica</h1>
+            <p class="text-slate-500 max-w-2xl text-lg">Inversión detallada para la profesionalización y escalabilidad de tu agencia de viajes.</p>
+        </div>
+
+        <!-- Layout de Columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Sidebar Navegación -->
+            <div class="lg:col-span-3 space-y-2">
+                <template x-for="(section, key) in data" :key="key">
+                    <button 
+                        @click="currentSection = key"
+                        :class="currentSection === key ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]' : 'bg-white text-slate-500 hover:bg-slate-50'"
+                        class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-200 text-left border border-slate-100"
+                    >
+                        <span class="text-2xl" x-text="section.icon"></span>
+                        <div class="overflow-hidden">
+                            <p class="text-[10px] font-black uppercase opacity-60" x-text="'Módulo 0' + section.id"></p>
+                            <p class="font-bold truncate" x-text="section.title"></p>
+                        </div>
+                    </button>
+                </template>
+
+                <!-- Resumen de Inversión (Sticky en escritorio) -->
+                <div class="mt-8 p-6 rounded-3xl bg-slate-900 text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+                    <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-4">Resumen de Pago</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Inversión Inicial</p>
+                            <p class="text-sm font-medium">Web + Setup Redes</p>
+                            <p class="text-xs text-slate-500 italic mt-1">(Se abona al comenzar)</p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Inversión Mensual</p>
+                            <p class="text-sm font-medium">Gestión y Plataforma</p>
+                            <p class="text-xs text-slate-500 italic mt-1">(Del 1 al 5 de cada mes)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="lg:col-span-9">
+                <div class="bg-white rounded-[2.5rem] border border-slate-200 p-6 md:p-12 shadow-sm min-h-[600px]">
+                    
+                    <!-- Módulo 1: WEB -->
+                    <div x-show="currentSection === 'web'" x-cloak x-transition.opacity>
+                        <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                            <div class="max-w-xl">
+                                <h2 class="text-4xl font-black text-slate-900 mb-6 leading-tight" x-text="data.web.title"></h2>
+                                <p class="text-slate-500 text-lg leading-relaxed" x-text="data.web.description"></p>
+                            </div>
+                            <div class="bg-primary/5 p-6 rounded-3xl border border-primary/10 text-center min-w-[200px]">
+                                <p class="text-xs font-bold text-primary uppercase mb-1" x-text="data.web.investmentLabel"></p>
+                                <p class="text-3xl font-black text-primary" x-text="data.web.investment"></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <template x-for="point in data.web.points">
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm mb-4">
+                                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 mb-2" x-text="point.t"></h4>
+                                    <p class="text-sm text-slate-500" x-text="point.d"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 2: REDES -->
+                    <div x-show="currentSection === 'social'" x-cloak x-transition.opacity>
+                        <h2 class="text-4xl font-black text-slate-900 mb-6" x-text="data.social.title"></h2>
+                        <p class="text-slate-500 text-lg mb-10" x-text="data.social.description"></p>
+
+                        <!-- Etapa 1 -->
+                        <div class="bg-primary rounded-3xl p-8 text-white mb-10 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10">
+                                <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2zm4 8h-2v-4h2v4zm0-6h-2V7h2v2z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                                <span class="bg-white/20 p-1 rounded">✨</span>
+                                <span x-text="data.social.setup.title"></span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <template x-for="item in data.social.setup.items">
+                                    <div class="flex items-center gap-3 text-sm font-medium">
+                                        <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                                        <span x-text="item"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Etapa 2 -->
+                        <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-6">Etapa 2: Packs Mensuales</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <template x-for="pack in data.social.packs">
+                                <div class="p-6 rounded-3xl border border-slate-100 bg-white hover:border-primary transition-colors group">
+                                    <p class="font-black text-primary mb-2" x-text="pack.name"></p>
+                                    <p class="text-xs text-slate-400 mb-6" x-text="pack.desc"></p>
+                                    <p class="text-2xl font-black text-slate-900" x-text="pack.price"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 3: ADS -->
+                    <div x-show="currentSection === 'ads'" x-cloak x-transition.opacity>
+                        <h2 class="text-4xl font-black text-slate-900 mb-6" x-text="data.ads.title"></h2>
+                        <p class="text-slate-500 text-lg mb-12" x-text="data.ads.description"></p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-8">
+                                <template x-for="detail in data.ads.details">
+                                    <div class="flex gap-4">
+                                        <div class="text-2xl">🎯</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-900" x-text="detail.t"></h4>
+                                            <p class="text-sm text-slate-500" x-text="detail.d"></p>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                                <h4 class="font-black text-xs uppercase text-slate-400 mb-6 tracking-widest">Planes Disponibles</h4>
+                                <div class="space-y-4 mb-6">
+                                    <template x-for="plan in data.ads.plans">
+                                        <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100">
+                                            <span class="text-sm font-bold" x-text="plan.name"></span>
+                                            <span class="text-primary font-black" x-text="plan.price"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <p class="text-[10px] text-slate-400 italic" x-text="'* ' + data.ads.note"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 4: WHATSAPP -->
+                    <div x-show="currentSection === 'wa'" x-cloak x-transition.opacity>
+                        <h2 class="text-4xl font-black text-slate-900 mb-6" x-text="data.wa.title"></h2>
+                        <p class="text-slate-500 text-lg mb-10" x-text="data.wa.description"></p>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-slate-900 rounded-3xl p-8 text-white">
+                                <h4 class="text-accent font-black text-[10px] uppercase mb-6 tracking-widest">Funcionalidades Clave</h4>
+                                <div class="space-y-4">
+                                    <template x-for="feat in data.wa.features">
+                                        <div class="flex items-center gap-3 text-sm">
+                                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                            <span x-text="feat"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <template x-for="plan in data.wa.plans">
+                                    <div class="p-8 rounded-3xl border border-slate-100 flex flex-col justify-center relative overflow-hidden group hover:border-primary transition-all">
+                                        <template x-if="plan.badge">
+                                            <span class="absolute top-4 right-4 bg-accent text-white text-[10px] font-black px-2 py-1 rounded-full" x-text="plan.badge"></span>
+                                        </template>
+                                        <p class="text-slate-400 text-xs font-bold uppercase mb-1" x-text="plan.name"></p>
+                                        <p class="text-3xl font-black text-slate-900" x-text="plan.price"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer / Call to Action -->
+        <div class="mt-20 text-center border-t border-slate-200 pt-12">
+            <p class="text-slate-400 font-bold text-xs uppercase tracking-widest mb-6">Impulsando el futuro del turismo</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button class="bg-primary text-white px-10 py-4 rounded-2xl font-black shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+                    Aceptar Propuesta
+                </button>
+                <button class="bg-white text-slate-900 border border-slate-200 px-10 py-4 rounded-2xl font-black hover:bg-slate-50 transition-colors">
+                    Descargar PDF
+                </button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
