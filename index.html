@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travexa - Plataforma de Viajes</title>
-    
-    <!-- Estilos -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f8faf9; 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8faf9;
             color: #1f2937;
         }
         .glass-panel {
@@ -24,7 +23,6 @@
     </style>
 
     <script>
-        // Configuración de Tailwind
         window.tailwind.config = {
             theme: {
                 extend: {
@@ -40,30 +38,32 @@
             }
         };
 
-        // Lógica de la aplicación ANTES de cargar Alpine
         function travexaApp() {
             return {
+                activeTab: 'home',
                 currentView: 'home',
                 selectedPackage: null,
+                currentSection: 'web',
+                chips: ['Todos', 'AR nacional', 'Inter', 'Moneda', 'Precio', 'Traslado', 'Tipo', 'Más filtros'],
                 categories: [
-                    { id: 1, name: 'Costa Atlántica', subtitle: 'Sol y Arena', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80' },
-                    { id: 2, name: 'Patagonia', subtitle: 'Paisajes Épicos', img: 'https://images.unsplash.com/photo-1517054466297-317af3726723?auto=format&fit=crop&w=500&q=80' },
-                    { id: 3, name: 'Cuyo', subtitle: 'Viñedos y Montaña', img: 'https://images.unsplash.com/photo-1596434449015-849ba8208990?auto=format&fit=crop&w=500&q=80' },
-                    { id: 4, name: 'Norte Argentino', subtitle: 'Cultura y Color', img: 'https://images.unsplash.com/photo-1582234032336-6e3e06180590?auto=format&fit=crop&w=500&q=80' }
+                    { id: 1, name: 'Costa Atlántica', subtitle: 'Sol y Arena', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80' },
+                    { id: 2, name: 'Patagonia', subtitle: 'Paisajes épicos', img: 'https://images.unsplash.com/photo-1517054466297-317af3726723?auto=format&fit=crop&w=900&q=80' },
+                    { id: 3, name: 'Cuyo', subtitle: 'Viñedos y montaña', img: 'https://images.unsplash.com/photo-1596434449015-849ba8208990?auto=format&fit=crop&w=900&q=80' },
+                    { id: 4, name: 'Norte Argentino', subtitle: 'Cultura y color', img: 'https://images.unsplash.com/photo-1582234032336-6e3e06180590?auto=format&fit=crop&w=900&q=80' }
                 ],
                 packages: [
-                    { 
+                    {
                         id: 101,
-                        title: 'Ushuaia, Fin del Mundo', 
+                        title: 'Ushuaia, Fin del Mundo',
                         destination: 'Ushuaia, Tierra del Fuego',
                         badge: 'Escapada',
-                        price: '780.900', 
+                        price: '780.900',
                         heroImg: 'https://images.unsplash.com/photo-1544085311-11a028465b0c?auto=format&fit=crop&w=800&q=80',
                         gallery: [
                             'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=400&q=80',
                             'https://images.unsplash.com/photo-1628156172677-508b981ecf42?auto=format&fit=crop&w=400&q=80'
                         ],
-                        agency: 'Dip Viajes', 
+                        agency: 'Dip Viajes',
                         duration: '4D/3N',
                         date: '12 Jun',
                         description: 'Disfrutá de la ciudad más austral del mundo con este paquete diseñado para conocer lo esencial de Ushuaia.',
@@ -74,18 +74,18 @@
                             { day: 'Día 2', title: 'Parque Nacional', desc: 'Excursión guiada.' }
                         ]
                     },
-                    { 
+                    {
                         id: 102,
-                        title: 'El Calafate Clásico', 
+                        title: 'El Calafate Clásico',
                         destination: 'El Calafate, Santa Cruz',
                         badge: 'Naturaleza',
-                        price: '831.000', 
+                        price: '831.000',
                         heroImg: 'https://images.unsplash.com/photo-1516939155915-0568bd4ed23c?auto=format&fit=crop&w=800&q=80',
                         gallery: [
                             'https://images.unsplash.com/photo-1494252713559-f26b4fb0c159?auto=format&fit=crop&w=400&q=80',
                             'https://images.unsplash.com/photo-1542408359-598d1a118df0?auto=format&fit=crop&w=400&q=80'
                         ],
-                        agency: 'Travexa', 
+                        agency: 'Travexa',
                         duration: '4D/3N',
                         date: '15 Jul',
                         description: 'Impresionante viaje para conocer la octava maravilla del mundo: El Glaciar Perito Moreno.',
@@ -97,36 +97,108 @@
                         ]
                     }
                 ],
+                data: {
+                    web: {
+                        id: 1,
+                        title: 'Presencia Web Profesional',
+                        icon: '🌐',
+                        description: 'En el sector turístico, la confianza lo es todo. Desarrollamos un sitio web que no solo sirve como vidriera, sino como una herramienta de venta activa.',
+                        investment: '$150.000',
+                        investmentLabel: 'Inversión única',
+                        points: [
+                            { t: 'Diseño a medida', d: 'Estética moderna, limpia y adaptada a dispositivos móviles.' },
+                            { t: 'Optimización de Conversión', d: 'Botones de contacto claros y secciones de destinos destacadas.' },
+                            { t: 'Autogestión', d: 'Estructura pensada para que la carga de paquetes sea ágil.' }
+                        ]
+                    },
+                    social: {
+                        id: 2,
+                        title: 'Gestión de Redes Sociales',
+                        icon: '📱',
+                        description: 'No se trata solo de “estar”, sino de destacar. El servicio se divide en una puesta a punto estética y un plan mensual.',
+                        setup: {
+                            title: 'Etapa 1: Setup de Identidad',
+                            items: [
+                                'Optimización de seguridad en IG/FB',
+                                'Diseño de perfil y portada coherente',
+                                '4 Portadas para Historias Destacadas',
+                                'Copywriting persuasivo en biografía'
+                            ]
+                        },
+                        packs: [
+                            { name: 'Pack x3', desc: '3 posts + 3 historias (Básico)', price: '$80.000' },
+                            { name: 'Pack x6', desc: '6 posts + 6 historias (Activo)', price: '$140.000' },
+                            { name: 'Pack x9', desc: '9 posts + 9 historias (Máximo)', price: '$200.000' }
+                        ]
+                    },
+                    ads: {
+                        id: 3,
+                        title: 'Campañas Meta Ads',
+                        icon: '🚀',
+                        description: 'Para dejar de esperar que los clientes lleguen solos y salir a buscarlos con precisión quirúrgica.',
+                        details: [
+                            { t: 'Segmentación', d: 'Intereses reales en viajes y capacidad de compra.' },
+                            { t: 'Creatividad', d: 'Piezas diseñadas para detener el scroll.' },
+                            { t: 'Transparencia', d: 'Reporte mensual de alcance y consultas.' }
+                        ],
+                        plans: [
+                            { name: 'Plan 1 Pieza Gráfica', price: '$100.000 / mes' },
+                            { name: 'Plan 2 Piezas Gráficas', price: '$120.000 / mes' }
+                        ],
+                        note: 'El costo es por gestión y diseño. El pago a Meta se define según alcance deseado.'
+                    },
+                    wa: {
+                        id: 4,
+                        title: 'Asistente Virtual WhatsApp',
+                        icon: '🤖',
+                        description: 'Transformamos tu WhatsApp en una verdadera central de reservas para no perder ninguna consulta.',
+                        features: [
+                            'Automatización con IA (24/7)',
+                            'Gestión de Prospectos por etiquetas',
+                            'Embudo de ventas visual',
+                            'API Oficial (Sin riesgo de bloqueo)',
+                            'Bandeja de entrada multicanal para equipos'
+                        ],
+                        plans: [
+                            { name: 'Suscripción Mensual', price: '$50.000' },
+                            { name: 'Bonificación Anual', price: '$450.000', badge: '9 meses x 12' }
+                        ]
+                    }
+                },
+                setTab(tab) {
+                    this.activeTab = tab;
+                    if (tab === 'individual') this.currentView = 'home';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
                 goToDetail(pkg) {
                     this.selectedPackage = pkg;
                     this.currentView = 'detail';
+                    this.activeTab = 'individual';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
                 goHome() {
                     this.currentView = 'home';
+                    this.activeTab = 'home';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             }
         }
     </script>
-    
-    <!-- Alpine.js (Cargado al final del head para evitar errores de referencia) -->
+
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body x-data="travexaApp()" class="antialiased selection:bg-primary selection:text-white">
-
-    <!-- Navbar -->
     <header class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100 shadow-sm">
         <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
-            <button @click="goHome()" class="text-3xl font-extrabold text-primary flex items-center gap-2">
+            <button @click="setTab('home')" class="text-3xl font-extrabold text-primary flex items-center gap-2">
                 X <span class="text-sm font-medium text-gray-500 hidden sm:block mt-1">Travexa</span>
             </button>
-            
-            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                <a href="#" @click.prevent="goHome()" class="transition-colors hover:text-primary" :class="currentView === 'home' ? 'text-primary border-b-2 border-primary pb-1' : ''">Home</a>
-                <a href="#" class="hover:text-primary transition-colors">Asesores</a>
-                <a href="#" class="text-primary font-bold">✨ Cotizá</a>
+
+            <nav class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
+                <a href="#" @click.prevent="setTab('home')" class="pb-1 border-b-2 transition-colors" :class="activeTab === 'home' ? 'text-primary border-primary' : 'border-transparent hover:text-primary'">Home</a>
+                <a href="#" @click.prevent="setTab('individual')" class="pb-1 border-b-2 transition-colors" :class="activeTab === 'individual' ? 'text-primary border-primary' : 'border-transparent hover:text-primary'">Individual</a>
+                <a href="#" @click.prevent="setTab('presupuesto')" class="pb-1 border-b-2 transition-colors" :class="activeTab === 'presupuesto' ? 'text-primary border-primary' : 'border-transparent hover:text-primary'">Presupuesto</a>
             </nav>
 
             <button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors">
@@ -135,33 +207,78 @@
         </div>
     </header>
 
-    <!-- VISTA HOME -->
-    <main x-show="currentView === 'home'" x-cloak>
-        <section class="relative h-[400px] flex items-center justify-center text-center bg-gray-900 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1612294037637-ec328d0e075e?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50">
-            <div class="relative z-10 px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Paquetes por Argentina</h1>
-                <p class="text-white/90 text-lg max-w-2xl mx-auto mb-8">Viajes completos diseñados por expertos locales.</p>
-                <button class="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Explorar ahora</button>
+    <main x-show="activeTab === 'home'" x-cloak>
+        <section class="max-w-[1400px] mx-auto px-4 md:px-8 pt-8 md:pt-12 pb-6">
+            <div class="relative rounded-[2.5rem] overflow-hidden bg-gray-900 min-h-[360px] md:min-h-[430px] px-6 md:px-12 py-10 md:py-14 grid md:grid-cols-2 gap-8 items-center">
+                <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-35" alt="Hero viajes">
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/40"></div>
+
+                <div class="relative z-10 text-white max-w-xl">
+                    <p class="text-xs uppercase tracking-[0.25em] text-primary-light font-bold mb-4">Experiencias diseñadas</p>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Descubrí tu próximo viaje por Argentina</h1>
+                    <p class="text-white/85 text-base md:text-lg mb-8">Elegí paquetes curados por especialistas, con salidas confirmadas y asesoría personalizada.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="bg-primary text-white px-8 py-3 rounded-2xl font-bold shadow-lg shadow-primary/25 hover:bg-primary-dark transition-colors">Explorar ofertas</button>
+                        <button class="bg-white/15 border border-white/25 text-white px-8 py-3 rounded-2xl font-bold hover:bg-white/25 transition-colors">Hablar con asesor</button>
+                    </div>
+                </div>
+
+                <div class="relative z-10 hidden md:grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" class="rounded-3xl h-40 w-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=600&q=80" class="rounded-3xl h-40 w-full object-cover mt-8">
+                    <div class="col-span-2 bg-white/90 rounded-3xl p-5 text-slate-700">
+                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-1">+1500 viajeros este mes</p>
+                        <p class="font-semibold">Reservá en minutos y recibí confirmación por WhatsApp.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Categorías -->
-        <section class="max-w-[1200px] mx-auto py-12 px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <template x-for="cat in categories" :key="cat.id">
-                    <div class="relative h-32 rounded-2xl overflow-hidden cursor-pointer group">
-                        <img :src="cat.img" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <h3 class="text-white font-bold" x-text="cat.name"></h3>
-                        </div>
-                    </div>
+        <section class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="glass-panel rounded-3xl p-4 md:p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 items-center">
+                    <label class="bg-white rounded-2xl px-4 py-3 border border-gray-100">
+                        <span class="text-[11px] text-gray-400 font-bold uppercase">Origen</span>
+                        <input type="text" value="Buenos Aires" class="w-full text-sm font-semibold outline-none">
+                    </label>
+                    <label class="bg-white rounded-2xl px-4 py-3 border border-gray-100">
+                        <span class="text-[11px] text-gray-400 font-bold uppercase">Destino</span>
+                        <input type="text" value="El Calafate" class="w-full text-sm font-semibold outline-none">
+                    </label>
+                    <label class="bg-white rounded-2xl px-4 py-3 border border-gray-100">
+                        <span class="text-[11px] text-gray-400 font-bold uppercase">Fecha</span>
+                        <input type="text" value="15 Jul - 20 Jul" class="w-full text-sm font-semibold outline-none">
+                    </label>
+                    <button class="bg-primary hover:bg-primary-dark transition-colors text-white font-bold rounded-2xl px-6 py-4 w-full">Buscar</button>
+                </div>
+            </div>
+
+            <div class="flex gap-2 overflow-x-auto py-6">
+                <template x-for="(chip, i) in chips" :key="chip">
+                    <button class="whitespace-nowrap px-4 py-2 rounded-full text-sm border transition-colors" :class="i === 0 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary'" x-text="chip"></button>
                 </template>
             </div>
         </section>
 
-        <!-- Paquetes -->
-        <section class="max-w-[1200px] mx-auto px-4 pb-20">
+        <section class="max-w-[1400px] mx-auto px-4 md:px-8 pb-16">
+            <h2 class="text-2xl md:text-3xl font-extrabold mb-6">Tipos de viaje</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <template x-for="cat in categories" :key="cat.id">
+                    <article class="relative rounded-3xl h-56 overflow-hidden group cursor-pointer">
+                        <img :src="cat.img" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 p-5">
+                            <p class="text-white/80 text-xs uppercase tracking-widest font-semibold" x-text="cat.subtitle"></p>
+                            <h3 class="text-white text-xl font-black" x-text="cat.name"></h3>
+                        </div>
+                    </article>
+                </template>
+            </div>
+        </section>
+    </main>
+
+    <main x-show="activeTab === 'individual'" x-cloak>
+        <section x-show="currentView === 'home'" x-cloak class="max-w-[1200px] mx-auto px-4 py-12">
             <h2 class="text-2xl font-bold mb-8">Paquetes destacados</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="pkg in packages" :key="pkg.id">
@@ -185,58 +302,220 @@
                 </template>
             </div>
         </section>
+
+        <section x-show="currentView === 'detail'" x-cloak>
+            <template x-if="selectedPackage">
+                <div class="max-w-[1200px] mx-auto px-4 pt-8 pb-20">
+                    <button @click="currentView = 'home'" class="flex items-center gap-2 text-gray-500 hover:text-primary mb-6 transition-colors">
+                        ← Volver a paquetes
+                    </button>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                        <div class="lg:col-span-2">
+                            <div class="rounded-3xl overflow-hidden h-[400px] mb-8">
+                                <img :src="selectedPackage.heroImg" class="w-full h-full object-cover">
+                            </div>
+                            <h1 class="text-4xl font-extrabold mb-4" x-text="selectedPackage.title"></h1>
+                            <div class="flex gap-4 mb-8">
+                                <template x-for="tag in selectedPackage.tags">
+                                    <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-xs font-bold" x-text="tag.icon + ' ' + tag.text"></span>
+                                </template>
+                            </div>
+                            <p class="text-lg text-gray-600 mb-10" x-text="selectedPackage.description"></p>
+
+                            <div class="bg-white rounded-3xl p-8 border border-gray-100">
+                                <h3 class="text-xl font-bold mb-6">Itinerario</h3>
+                                <div class="space-y-6">
+                                    <template x-for="day in selectedPackage.itinerary">
+                                        <div class="flex gap-4">
+                                            <div class="font-bold text-primary" x-text="day.day"></div>
+                                            <div>
+                                                <div class="font-bold" x-text="day.title"></div>
+                                                <div class="text-gray-500 text-sm" x-text="day.desc"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="sticky top-28 bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
+                                <p class="text-sm text-gray-500 font-bold uppercase mb-1">Precio Final</p>
+                                <p class="text-3xl font-black text-primary mb-6">ARS $<span x-text="selectedPackage.price"></span></p>
+
+                                <button class="w-full bg-accent text-white py-4 rounded-2xl font-black mb-4 shadow-lg shadow-accent/20">RESERVAR AHORA</button>
+                                <button class="w-full border-2 border-primary text-primary py-3 rounded-2xl font-bold">Consultar dudas</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </section>
     </main>
 
-    <!-- VISTA DETALLE -->
-    <main x-show="currentView === 'detail'" x-cloak>
-        <template x-if="selectedPackage">
-            <div class="max-w-[1200px] mx-auto px-4 pt-8 pb-20">
-                <button @click="goHome()" class="flex items-center gap-2 text-gray-500 hover:text-primary mb-6 transition-colors">
-                    ← Volver al inicio
-                </button>
+    <main x-show="activeTab === 'presupuesto'" x-cloak class="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-12">
+        <div class="mb-12">
+            <p class="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">Presupuesto Travexa Digital</p>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-3">Propuesta Estratégica</h2>
+            <p class="text-slate-500 max-w-2xl text-lg">Inversión detallada para profesionalizar y escalar una agencia de viajes con enfoque comercial.</p>
+        </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <div class="lg:col-span-2">
-                        <div class="rounded-3xl overflow-hidden h-[400px] mb-8">
-                            <img :src="selectedPackage.heroImg" class="w-full h-full object-cover">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <aside class="lg:col-span-3 space-y-2">
+                <template x-for="(section, key) in data" :key="key">
+                    <button
+                        @click="currentSection = key"
+                        :class="currentSection === key ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02] border-primary' : 'bg-white text-slate-500 hover:bg-slate-50 border-slate-100'"
+                        class="w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-200 text-left border"
+                    >
+                        <span class="text-2xl" x-text="section.icon"></span>
+                        <div class="overflow-hidden">
+                            <p class="text-[10px] font-black uppercase opacity-60" x-text="'Módulo 0' + section.id"></p>
+                            <p class="font-bold truncate" x-text="section.title"></p>
                         </div>
-                        <h1 class="text-4xl font-extrabold mb-4" x-text="selectedPackage.title"></h1>
-                        <div class="flex gap-4 mb-8">
-                            <template x-for="tag in selectedPackage.tags">
-                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-xs font-bold" x-text="tag.icon + ' ' + tag.text"></span>
+                    </button>
+                </template>
+
+                <div class="mt-8 p-6 rounded-3xl bg-slate-900 text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+                    <h4 class="text-xs font-black text-primary-light uppercase tracking-widest mb-4">Resumen de Pago</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Inversión Inicial</p>
+                            <p class="text-sm font-medium">Web + Setup Redes</p>
+                            <p class="text-xs text-slate-500 italic mt-1">(Se abona al comenzar)</p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Inversión Mensual</p>
+                            <p class="text-sm font-medium">Gestión y Plataforma</p>
+                            <p class="text-xs text-slate-500 italic mt-1">(Del 1 al 5 de cada mes)</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="lg:col-span-9">
+                <div class="bg-white rounded-[2.5rem] border border-slate-200 p-6 md:p-12 shadow-sm min-h-[600px]">
+                    <div x-show="currentSection === 'web'" x-cloak x-transition.opacity>
+                        <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-12">
+                            <div class="max-w-xl">
+                                <h3 class="text-4xl font-black text-slate-900 mb-6 leading-tight" x-text="data.web.title"></h3>
+                                <p class="text-slate-500 text-lg leading-relaxed" x-text="data.web.description"></p>
+                            </div>
+                            <div class="bg-primary/5 p-6 rounded-3xl border border-primary/10 text-center min-w-[200px]">
+                                <p class="text-xs font-bold text-primary uppercase mb-1" x-text="data.web.investmentLabel"></p>
+                                <p class="text-3xl font-black text-primary" x-text="data.web.investment"></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <template x-for="point in data.web.points">
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm mb-4">
+                                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 mb-2" x-text="point.t"></h4>
+                                    <p class="text-sm text-slate-500" x-text="point.d"></p>
+                                </div>
                             </template>
                         </div>
-                        <p class="text-lg text-gray-600 mb-10" x-text="selectedPackage.description"></p>
-                        
-                        <div class="bg-white rounded-3xl p-8 border border-gray-100">
-                            <h3 class="text-xl font-bold mb-6">Itinerario</h3>
-                            <div class="space-y-6">
-                                <template x-for="day in selectedPackage.itinerary">
+                    </div>
+
+                    <div x-show="currentSection === 'social'" x-cloak x-transition.opacity>
+                        <h3 class="text-4xl font-black text-slate-900 mb-6" x-text="data.social.title"></h3>
+                        <p class="text-slate-500 text-lg mb-10" x-text="data.social.description"></p>
+
+                        <div class="bg-primary rounded-3xl p-8 text-white mb-10 relative overflow-hidden">
+                            <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                                <span class="bg-white/20 p-1 rounded">✨</span>
+                                <span x-text="data.social.setup.title"></span>
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <template x-for="item in data.social.setup.items">
+                                    <div class="flex items-center gap-3 text-sm font-medium">
+                                        <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                                        <span x-text="item"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <h4 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-6">Etapa 2: Packs Mensuales</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <template x-for="pack in data.social.packs">
+                                <div class="p-6 rounded-3xl border border-slate-100 bg-white hover:border-primary transition-colors group">
+                                    <p class="font-black text-primary mb-2" x-text="pack.name"></p>
+                                    <p class="text-xs text-slate-400 mb-6" x-text="pack.desc"></p>
+                                    <p class="text-2xl font-black text-slate-900" x-text="pack.price"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div x-show="currentSection === 'ads'" x-cloak x-transition.opacity>
+                        <h3 class="text-4xl font-black text-slate-900 mb-6" x-text="data.ads.title"></h3>
+                        <p class="text-slate-500 text-lg mb-12" x-text="data.ads.description"></p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-8">
+                                <template x-for="detail in data.ads.details">
                                     <div class="flex gap-4">
-                                        <div class="font-bold text-primary" x-text="day.day"></div>
+                                        <div class="text-2xl">🎯</div>
                                         <div>
-                                            <div class="font-bold" x-text="day.title"></div>
-                                            <div class="text-gray-500 text-sm" x-text="day.desc"></div>
+                                            <h4 class="font-bold text-slate-900" x-text="detail.t"></h4>
+                                            <p class="text-sm text-slate-500" x-text="detail.d"></p>
                                         </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                                <h4 class="font-black text-xs uppercase text-slate-400 mb-6 tracking-widest">Planes Disponibles</h4>
+                                <div class="space-y-4 mb-6">
+                                    <template x-for="plan in data.ads.plans">
+                                        <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100">
+                                            <span class="text-sm font-bold" x-text="plan.name"></span>
+                                            <span class="text-primary font-black" x-text="plan.price"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <p class="text-[10px] text-slate-400 italic" x-text="'* ' + data.ads.note"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="currentSection === 'wa'" x-cloak x-transition.opacity>
+                        <h3 class="text-4xl font-black text-slate-900 mb-6" x-text="data.wa.title"></h3>
+                        <p class="text-slate-500 text-lg mb-10" x-text="data.wa.description"></p>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-slate-900 rounded-3xl p-8 text-white">
+                                <h4 class="text-accent font-black text-[10px] uppercase mb-6 tracking-widest">Funcionalidades Clave</h4>
+                                <div class="space-y-4">
+                                    <template x-for="feat in data.wa.features">
+                                        <div class="flex items-center gap-3 text-sm">
+                                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                            <span x-text="feat"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <template x-for="plan in data.wa.plans">
+                                    <div class="p-8 rounded-3xl border border-slate-100 flex flex-col justify-center relative overflow-hidden hover:border-primary transition-all">
+                                        <template x-if="plan.badge">
+                                            <span class="absolute top-4 right-4 bg-accent text-white text-[10px] font-black px-2 py-1 rounded-full" x-text="plan.badge"></span>
+                                        </template>
+                                        <p class="text-slate-400 text-xs font-bold uppercase mb-1" x-text="plan.name"></p>
+                                        <p class="text-3xl font-black text-slate-900" x-text="plan.price"></p>
                                     </div>
                                 </template>
                             </div>
                         </div>
                     </div>
-
-                    <div class="relative">
-                        <div class="sticky top-28 bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
-                            <p class="text-sm text-gray-500 font-bold uppercase mb-1">Precio Final</p>
-                            <p class="text-3xl font-black text-primary mb-6">ARS $<span x-text="selectedPackage.price"></span></p>
-                            
-                            <button class="w-full bg-accent text-white py-4 rounded-2xl font-black mb-4 shadow-lg shadow-accent/20">RESERVAR AHORA</button>
-                            <button class="w-full border-2 border-primary text-primary py-3 rounded-2xl font-bold">Consultar dudas</button>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </template>
+            </section>
+        </div>
     </main>
-
 </body>
 </html>
